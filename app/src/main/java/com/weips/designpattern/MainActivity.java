@@ -3,6 +3,8 @@ package com.weips.designpattern;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.weips.designpattern.singleton.SingletonManager;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
