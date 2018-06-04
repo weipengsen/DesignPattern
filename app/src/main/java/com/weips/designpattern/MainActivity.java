@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         InvocationHandlerImpl handlerImpl = new InvocationHandlerImpl(realSubject);
         ClassLoader classLoader = realSubject.getClass().getClassLoader();
-        ISubject proxySubject_2 = (ProxySubject) Proxy.newProxyInstance(classLoader,
+        ISubject proxySubject_2 = (ISubject) Proxy.newProxyInstance(classLoader,
                 new Class[]{ISubject.class}, handlerImpl);
         proxySubject_2.operate();
     }
