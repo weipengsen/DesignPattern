@@ -6,7 +6,12 @@ import android.os.Bundle;
 import com.weips.designpattern.decorator.Component;
 import com.weips.designpattern.decorator.ConcreteComponent;
 import com.weips.designpattern.decorator.ConcreteDecoratorA;
-import com.weips.designpattern.singleton.SingletonManager;
+import com.weips.designpattern.proxy.ISubject;
+import com.weips.designpattern.proxy.InvocationHandlerImpl;
+import com.weips.designpattern.proxy.ProxySubject;
+import com.weips.designpattern.proxy.RealSubject;
+
+import java.lang.reflect.Proxy;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +20,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        decorator();
+        proxy();
+    }
+
+    private void proxy() {
+        RealSubject realSubject = new RealSubject();
+        ProxySubject proxySubject = new ProxySubject(realSubject);
+        proxySubject.operate();
+
+        InvocationHandlerImpl handlerImpl = new InvocationHandlerImpl(realSubject);
+        ClassLoader classLoader = realSubject.getClass().getClassLoader();
+        ISubject proxySubject_2 = (ProxySubject) Proxy.newProxyInstance(classLoader,
+                new Class[]{ISubject.class}, handlerImpl);
+        proxySubject_2.operate();
+    }
+
+    private void decorator() {
         Component component = new ConcreteComponent();
         ConcreteDecoratorA decoratorAComponent = new ConcreteDecoratorA(component);
 
