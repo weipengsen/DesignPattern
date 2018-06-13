@@ -2,10 +2,16 @@ package com.weips.designpattern;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.weips.designpattern.adapter.Volt220;
+import com.weips.designpattern.adapter.VoltAdapter_1;
+import com.weips.designpattern.adapter.VoltAdapter_2;
 import com.weips.designpattern.decorator.Component;
 import com.weips.designpattern.decorator.ConcreteComponent;
 import com.weips.designpattern.decorator.ConcreteDecoratorA;
+import com.weips.designpattern.flyweight.Ticket;
+import com.weips.designpattern.flyweight.TicketFactory;
 import com.weips.designpattern.proxy.ISubject;
 import com.weips.designpattern.proxy.InvocationHandlerImpl;
 import com.weips.designpattern.proxy.ProxySubject;
@@ -14,6 +20,7 @@ import com.weips.designpattern.proxy.RealSubject;
 import java.lang.reflect.Proxy;
 
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +28,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        decorator();
-        proxy();
+//        proxy();
+        adapter();
+        flyweight();
+    }
+
+    private void flyweight() {
+        Ticket ticket_1 = TicketFactory.getTicket("hangzhou","guangzhou");
+        ticket_1.showTicketInfo("xia");
+
+        Ticket ticket_2 = TicketFactory.getTicket("hangzhou","guangzhou");
+        ticket_1.showTicketInfo("shang");
+
+        Ticket ticket_3 = TicketFactory.getTicket("hangzhou","hengshui");
+        ticket_1.showTicketInfo("xia");
+    }
+
+    private void adapter() {
+        Log.e(TAG, new VoltAdapter_1().get5V() + "");
+        Log.e(TAG, new VoltAdapter_2(new Volt220()).get5V() + "");
     }
 
     private void proxy() {
