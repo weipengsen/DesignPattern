@@ -3,6 +3,7 @@ package com.weips.designpattern;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 
 import com.weips.designpattern.adapter.Volt220;
 import com.weips.designpattern.adapter.VoltAdapter_1;
@@ -10,6 +11,12 @@ import com.weips.designpattern.adapter.VoltAdapter_2;
 import com.weips.designpattern.decorator.Component;
 import com.weips.designpattern.decorator.ConcreteComponent;
 import com.weips.designpattern.decorator.ConcreteDecoratorA;
+import com.weips.designpattern.factory.ConcreteFactory;
+import com.weips.designpattern.factory.ConcreteProductA;
+import com.weips.designpattern.factory.Factory;
+import com.weips.designpattern.factory.Product;
+import com.weips.designpattern.factory.ReflectConcreteFactory;
+import com.weips.designpattern.factory.ReflectFactory;
 import com.weips.designpattern.flyweight.Ticket;
 import com.weips.designpattern.flyweight.TicketFactory;
 import com.weips.designpattern.proxy.ISubject;
@@ -29,18 +36,36 @@ public class MainActivity extends AppCompatActivity {
 
 //        decorator();
 //        proxy();
-        adapter();
-        flyweight();
+//        adapter();
+//        flyweight();
+//        factory();
+        reflectFactory();
+    }
+
+    private void reflectFactory() {
+        ReflectFactory factory = new ReflectConcreteFactory<ConcreteProductA>();
+        try {
+            Product product = factory.createProduct();
+            product.method();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void factory() {
+        Factory factory = new ConcreteFactory();
+        Product product = factory.createProduct();
+        product.method();
     }
 
     private void flyweight() {
-        Ticket ticket_1 = TicketFactory.getTicket("hangzhou","guangzhou");
+        Ticket ticket_1 = TicketFactory.getTicket("hangzhou", "guangzhou");
         ticket_1.showTicketInfo("xia");
 
-        Ticket ticket_2 = TicketFactory.getTicket("hangzhou","guangzhou");
+        Ticket ticket_2 = TicketFactory.getTicket("hangzhou", "guangzhou");
         ticket_1.showTicketInfo("shang");
 
-        Ticket ticket_3 = TicketFactory.getTicket("hangzhou","hengshui");
+        Ticket ticket_3 = TicketFactory.getTicket("hangzhou", "hengshui");
         ticket_1.showTicketInfo("xia");
     }
 
