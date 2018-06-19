@@ -1,12 +1,13 @@
 package com.weips.designpattern.factory;
 
-public class ReflectConcreteFactory<T extends Product> extends ReflectFactory {
-    private T t;
+public class ConcreteReflectionFactory extends ReflectionFactory {
 
     @Override
-    public Product createProduct() {
+    public <T extends Product> T createProduct(Class<T> clz) {
+        Product product = null;
+
         try {
-            return (Product) Class.forName(clz.getName()).newInstance();
+            product = (Product) Class.forName(clz.getName()).newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -14,6 +15,7 @@ public class ReflectConcreteFactory<T extends Product> extends ReflectFactory {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return null;
+
+        return (T) product;
     }
 }

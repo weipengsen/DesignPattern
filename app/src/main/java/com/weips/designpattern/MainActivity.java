@@ -3,7 +3,6 @@ package com.weips.designpattern;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 
 import com.weips.designpattern.adapter.Volt220;
 import com.weips.designpattern.adapter.VoltAdapter_1;
@@ -15,8 +14,8 @@ import com.weips.designpattern.factory.ConcreteFactory;
 import com.weips.designpattern.factory.ConcreteProductA;
 import com.weips.designpattern.factory.Factory;
 import com.weips.designpattern.factory.Product;
-import com.weips.designpattern.factory.ReflectConcreteFactory;
-import com.weips.designpattern.factory.ReflectFactory;
+import com.weips.designpattern.factory.ConcreteReflectionFactory;
+import com.weips.designpattern.factory.ReflectionFactory;
 import com.weips.designpattern.flyweight.Ticket;
 import com.weips.designpattern.flyweight.TicketFactory;
 import com.weips.designpattern.proxy.ISubject;
@@ -43,13 +42,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void reflectFactory() {
-        ReflectFactory factory = new ReflectConcreteFactory<ConcreteProductA>();
-        try {
-            Product product = factory.createProduct();
-            product.method();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ReflectionFactory factory = new ConcreteReflectionFactory();
+        Product product = factory.createProduct(ConcreteProductA.class);
+        product.method();
     }
 
     private void factory() {
