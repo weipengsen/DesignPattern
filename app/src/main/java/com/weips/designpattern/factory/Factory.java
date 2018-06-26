@@ -13,6 +13,13 @@ package com.weips.designpattern.factory;
  *
  * 抽象工厂类，工厂方法模式的核心
  */
+
+/**
+ * 抽象工厂模式
+ * 定义：为创建一组相关或相互依赖的对象提供一个接口，而不需要指定它们的具体类。
+ * 即一个工厂要创建多个对象。
+ * 不常用
+ */
 public abstract class Factory {
     public abstract Product createProduct();
 }

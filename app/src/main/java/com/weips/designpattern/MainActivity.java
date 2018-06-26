@@ -7,6 +7,12 @@ import android.util.Log;
 import com.weips.designpattern.adapter.Volt220;
 import com.weips.designpattern.adapter.VoltAdapter_1;
 import com.weips.designpattern.adapter.VoltAdapter_2;
+import com.weips.designpattern.chainofresponsibility.ConcreteHandlerA;
+import com.weips.designpattern.chainofresponsibility.ConcreteHandlerB;
+import com.weips.designpattern.chainofresponsibility.Interceptor;
+import com.weips.designpattern.chainofresponsibility.RealChain;
+import com.weips.designpattern.chainofresponsibility.RealInterceptorA;
+import com.weips.designpattern.chainofresponsibility.RealInterceptorB;
 import com.weips.designpattern.decorator.Component;
 import com.weips.designpattern.decorator.ConcreteComponent;
 import com.weips.designpattern.decorator.ConcreteDecoratorA;
@@ -24,6 +30,8 @@ import com.weips.designpattern.proxy.ProxySubject;
 import com.weips.designpattern.proxy.RealSubject;
 
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
@@ -38,8 +46,30 @@ public class MainActivity extends AppCompatActivity {
 //        adapter();
 //        flyweight();
 //        factory();
-        reflectFactory();
+//        reflectFactory();
+//        simpleResponsibility();
+        chainResponsibility();
     }
+
+    private void chainResponsibility() {
+        RealInterceptorA realInterceptorA = new RealInterceptorA();
+        RealInterceptorB realInterceptorB = new RealInterceptorB();
+        List<Interceptor> interceptorList = new ArrayList<>();
+        interceptorList.add(realInterceptorA);
+        interceptorList.add(realInterceptorB);
+
+        Interceptor.Chain chain = new RealChain("", interceptorList, 0);
+        String response = chain.procceed("BBB");
+        Log.e(TAG, "response = " + response);
+    }
+
+    private void simpleResponsibility() {
+        ConcreteHandlerA handlerA = new ConcreteHandlerA();
+        ConcreteHandlerB handlerB = new ConcreteHandlerB();
+        handlerA.successor = handlerB;
+        handlerA.handleRequese("ABB");
+    }
+
 
     private void reflectFactory() {
         ReflectionFactory factory = new ConcreteReflectionFactory();
