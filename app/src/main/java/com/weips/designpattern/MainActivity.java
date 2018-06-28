@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.weips.designpattern.Observer.Coder;
+import com.weips.designpattern.Observer.Manager;
 import com.weips.designpattern.adapter.Volt220;
 import com.weips.designpattern.adapter.VoltAdapter_1;
 import com.weips.designpattern.adapter.VoltAdapter_2;
@@ -48,7 +50,23 @@ public class MainActivity extends AppCompatActivity {
 //        factory();
 //        reflectFactory();
 //        simpleResponsibility();
-        chainResponsibility();
+//        chainResponsibility();
+        observer();
+    }
+
+    private void observer() {
+        Manager manager = new Manager();
+        Coder wei = new Coder("wei");
+        Coder mou = new Coder("mou");
+        Coder he = new Coder("he");
+        Coder wu = new Coder("wu");
+
+        manager.addObserver(wei);
+        manager.addObserver(mou);
+        manager.addObserver(he);
+        manager.addObserver(wu);
+
+        manager.declareMessage("明天放假");
     }
 
     private void chainResponsibility() {
